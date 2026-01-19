@@ -1,4 +1,4 @@
-const express = require('express'); // for creating server
+/* const express = require('express'); // for creating server
 const app = express() // create app
 const mongoose = require('mongoose'); //for mongoDB conncetion
 const PORT = 8181; // store port number
@@ -6,7 +6,7 @@ const PORT = 8181; // store port number
 // middleware - that parses JSON in request body
 app.use(express.json());
 
-// database connection function
+// database connection function 
 const connectToDB = async () => {
   try{
     // should remove 'new', we not crating here new object. er just call function.
@@ -32,15 +32,32 @@ app.listen(PORT, () => { // start server
   console.log('Server running on port ' + PORT);
   connectToDB(); //connect to DB after server starts.
 });
+ */
 
 
+/* const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
 
+app.use(express.json());
+const PORT = 8181;
 
+// GET - read data: to handle GET requests to home page '/'
+app.get('/', (req, res) => {
+  // respond with "hello world" when a GET request is made to the homepage '/'
+  res.send('Hello World')
+})
 
+app.post('/cards', (req, res) => {
+  console.log(req.body); // see what client sent
+  res.send(req.body); // send it back
+});
 
-
-
-
+// start srver
+app.listen(PORT, (req, res) => {
+  console.log('sever running on port ' + PORT);
+})
+ */
 
 
 
@@ -166,7 +183,7 @@ When you run `node app.js`:
 
 
 
-/* const express = require("express");
+const express = require("express");
 const mongoose = require("mongoose");
 const {createCard, getCards,} = require("./cards/models/cardsAccessDataService");
 
@@ -209,4 +226,4 @@ app.get("/cards", async (req, res) => {
 app.listen(PORT, () => {
   console.log("app is listening to port " + PORT);
   connectToDb();
-}); */
+});
