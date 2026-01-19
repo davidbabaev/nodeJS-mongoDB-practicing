@@ -11,6 +11,66 @@ const EMAIL = {
   type: String,
   required: true,
   match: RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
+  unique: true,
+  trim: true,
+};
+
+const DEFAULT_VALIDATOR = {
+  type: String,
+  required: true,
+  minLengh: 2,
+  maxLengh: 256,
+  trim: true,
+  lowercase: true,
+};
+
+const Number = {
+  type: Number,
+  required: true,
+  match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
+};
+
+module.exports = {URL, EMAIL, DEFAULT_VALIDATOR, Number};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* const URL = {
+  type: String,
+  trim: true,
+  lowercase: true,
+  match: RegExp(
+    /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
+  ),
+};
+
+const EMAIL = {
+  type: String,
+  required: true,
+  match: RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
   lowercase: true,
   trim: true,
   unique: true,
@@ -31,4 +91,4 @@ const PHONE = {
   match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/),
 };
 
-module.exports = { URL, EMAIL, DEFAULT_VALIDATION, PHONE };
+module.exports = { URL, EMAIL, DEFAULT_VALIDATION, PHONE }; */
