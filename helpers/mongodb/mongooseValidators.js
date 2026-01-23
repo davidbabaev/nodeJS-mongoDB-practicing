@@ -18,19 +18,19 @@ const EMAIL = {
 const DEFAULT_VALIDATOR = {
   type: String,
   required: true,
-  minLengh: 2,
-  maxLengh: 256,
+  minLength: 2,
+  maxLength: 256,
   trim: true,
   lowercase: true,
 };
 
-const Number = {
+const NUMBER = {
   type: Number,
   required: true,
   match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
 };
 
-module.exports = {URL, EMAIL, DEFAULT_VALIDATOR, Number};
+module.exports = {URL, EMAIL, DEFAULT_VALIDATOR, NUMBER};
 
 
 

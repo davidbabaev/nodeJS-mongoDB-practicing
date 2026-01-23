@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const {URL, EMAIL, DEFAULT_VALIDATOR, Number} = require('../../../helpers/mongodb/mongooseValidators')
+const {URL, EMAIL, DEFAULT_VALIDATOR, NUMBER} = require('../../../helpers/mongodb/mongooseValidators')
 
 const CardSchema = new mongoose.Schema({
   title: DEFAULT_VALIDATOR,
   subtitle: DEFAULT_VALIDATOR,
   description: DEFAULT_VALIDATOR,
-  phone: Number,
+  phone: NUMBER,
   email: EMAIL,
   web: URL,
   image: {
@@ -19,10 +19,13 @@ const CardSchema = new mongoose.Schema({
     houseNumber: DEFAULT_VALIDATOR,
     zip: DEFAULT_VALIDATOR,
   },
-  bizNumber: Number,
+  bizNumber: NUMBER,
   likes: [String],
-  user_id: '',
-  createdAt: Date.now
+  user_id: '', // --> needs a proper type definition
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 })
 
 const Card = mongoose.model('Card', CardSchema);
