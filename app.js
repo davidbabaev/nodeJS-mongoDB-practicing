@@ -50,7 +50,64 @@ app.listen(PORT, () => {
 
 
 
+
 const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+app.use(express.json());
+
+const Card = require('../mongoDBnodeJsFirst/cards/models/mongodb/Card')
+
+// const {createCard, } = require('../mongoDBnodeJsFirst/cards/models/cardsAccessDataService')
+
+const PORT = 8181;
+
+app.get('/cards', (req, res) => {
+  res.send('coonected to app')
+});
+
+const connectToDB = async () => {
+  try{
+    await mongoose.connect('mongodb://127.0.0.1:27017/cardsServer')
+    console.log('connected to DB');
+  }
+  catch(err){
+    console.log(err.message);
+  }
+}
+
+app.post('/cards', (req, res) => {
+  res.send(Card)
+})
+
+app.listen(PORT, () => {
+  console.log('listing to ', PORT);
+  connectToDB(); // <- add this otherwise you're never connecting to mongoDB
+})
+
+
+// you app.post - isn't doing anything useful:
+// ❌ What you wrote:
+// app.post('/cards', (req, res) => {
+//   res.send(Card)  // This just sends the schema definition, not a new card!
+// })
+
+// what i forgot:
+// 1. try{}catch(){}
+// 2. let card = new Card(req.body) <- create card from client data
+// 3. card = await card.save() <- save to mongoDB
+// 4. res.card(card) <- send back the saved card
+
+
+
+
+
+
+
+
+
+
+/* const express = require('express');
 const mongoose = require('mongoose');
 
 const{createCards, getCards} = require('../mongoDBnodeJsFirst/cards/models/cardsAccessDataService')
@@ -89,4 +146,4 @@ app.post('/cards', async (req, res) => {
 app.listen(PORT, () => {
   console.log('App Listening.. to: ', PORT);
   connectToDB();
-})
+}) */
