@@ -24,37 +24,21 @@ const DEFAULT_VALIDATOR = {
   lowercase: true,
 };
 
+// For phone numbers (String with regex pattern)
+const PHONE = {
+  type: String,
+  required: true,
+  match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/),
+};
+
+// For actual numbers (like houseNumber, zip, bizNumber)
 const NUMBER = {
   type: Number,
   required: true,
-  match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
+  min: 0,
 };
 
-module.exports = {URL, EMAIL, DEFAULT_VALIDATOR, NUMBER};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = { URL, EMAIL, DEFAULT_VALIDATOR, PHONE, NUMBER };
 
 
 
@@ -71,12 +55,11 @@ const EMAIL = {
   type: String,
   required: true,
   match: RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
-  lowercase: true,
-  trim: true,
   unique: true,
+  trim: true,
 };
 
-const DEFAULT_VALIDATION = {
+const DEFAULT_VALIDATOR = {
   type: String,
   required: true,
   minLength: 2,
@@ -85,10 +68,11 @@ const DEFAULT_VALIDATION = {
   lowercase: true,
 };
 
-const PHONE = {
-  type: String,
+const NUMBER = {
+  type: Number,
   required: true,
-  match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/),
+  match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
 };
 
-module.exports = { URL, EMAIL, DEFAULT_VALIDATION, PHONE }; */
+module.exports = {URL, EMAIL, DEFAULT_VALIDATOR, NUMBER}; */
+
