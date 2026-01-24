@@ -19,6 +19,23 @@ const getCards = async () => {
   }
 };
 
-module.exports = { createCard, getCards };
+const updateCard = async (cardId, newCard) => {
+  try {
+    const card = await Card.findByIdAndUpdate(cardId, newCard, { new: true });
+    return card;
+  } catch (error) {
+    throw new Error("Mongoose " + error.message);
+  }
+};
 
-const Card = require
+const deleteCard = async (cardId) => {
+  try {
+    const card = await Card.findByIdAndDelete(cardId);
+    return card;
+  } catch (error) {
+    throw new Error("Mongoose " + error.message);
+  }
+};
+
+
+module.exports = { createCard, getCards, updateCard, deleteCard };

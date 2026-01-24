@@ -21,7 +21,10 @@ const CardSchema = new mongoose.Schema({
   },
   bizNumber: NUMBER,
   likes: [String],
-  user_id: '', // --> needs a proper type definition
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  }, // --> needs a proper type definition
   createdAt: {
     type: Date,
     default: Date.now
