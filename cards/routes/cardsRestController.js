@@ -1,12 +1,13 @@
 const express = require('express');
-const router = express.Router(); // controller built-in functino, responsible on paths that start with specific string for example: '/cards'
-const{
-    createCard, 
-    getCards, 
-    updateCard, 
-    deleteCard , 
-    likeCard
-} = require('../../cards/models/cardsAccessDataService')
+const router = express.Router();
+const { 
+  createCard, 
+  getCards, 
+  getCard,      // ✅ Added
+  updateCard, 
+  deleteCard, 
+  likeCard 
+} = require('../models/cardsAccessDataService');  // ✅ Fixed path
 
 // GET all cards
 router.get('/', async (req, res) => {
@@ -22,7 +23,7 @@ router.get('/', async (req, res) => {
 // GET single card by ID
 router.get('/:id', async (req, res) => {
   try {
-    let card = await Card.findById(req.params.id);
+    let card = await getCard(req.params.id);  // ✅ Now using service function
     if (!card) {
       return res.status(404).send('Card not found');
     }
@@ -34,7 +35,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST new card
-router.post('/cards', async (req, res) => {
+router.post('/', async (req, res) => {  // ✅ Fixed path from '/cards' to '/'
   try {
     let card = await createCard(req.body);
     res.send(card);

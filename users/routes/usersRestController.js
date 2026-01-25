@@ -1,80 +1,71 @@
 const express = require('express');
-const router = express.Router(); // controller built-in functino, responsible on paths that start with specific string for example: '/cards'
-const{registerUser, getUser} = require('../../users/models/userAccessDataService')
- 
-// 
-// >>>>need to update all the functions<<<<<
-// 
+const router = express.Router();
+const { 
+  registerUser, 
+  getUsers, 
+  getUser, 
+  updateUser, 
+  deleteUser 
+} = require('../models/userAccessDataService');  // ✅ Fixed path and imports
 
-// GET all cards
+// GET all users
 router.get('/', async (req, res) => {
   try {
-    let cards = await getCards();
-    res.send(cards);
+    let users = await getUsers();  // ✅ Now using correct function
+    res.send(users);
   }
   catch(err) {
     res.status(400).send(err.message);
   }
 });
 
-// GET single card by ID
+// GET single user by ID
 router.get('/:id', async (req, res) => {
   try {
-    let card = await Card.findById(req.params.id);
-    if (!card) {
-      return res.status(404).send('Card not found');
+    let user = await getUser(req.params.id);  // ✅ Using service function
+    if (!user) {
+      return res.status(404).send('User not found');
     }
-    res.send(card);
+    res.send(user);
   }
   catch(err) {
     res.status(400).send(err.message);
   }
 });
 
-// POST new card
-router.post('/cards', async (req, res) => {
+// POST - Register new user
+router.post('/', async (req, res) => {  // ✅ Fixed path (just '/')
   try {
-    let card = await createCard(req.body);
-    res.send(card);
+    let user = await registerUser(req.body);  // ✅ Using correct function
+    res.send(user);
   }
   catch(err) {
     res.status(400).send(err.message);
   }
 });
 
-// PUT update card
+// PUT - Update user
 router.put('/:id', async (req, res) => {
   try {
-    let card = await updateCard(req.params.id, req.body);
-    if (!card) {
-      return res.status(404).send('Card not found');
+    let user = await updateUser(req.params.id, req.body);  // ✅ Using correct function
+    if (!user) {
+      return res.status(404).send('User not found');
     }
-    res.send(card);
+    res.send(user);
   }
   catch(err) {
     res.status(400).send(err.message);
   }
 });
 
-// PATCH like/unlike card
-router.patch('/:id', async (req, res) => {
-  try {
-    let card = await likeCard(req.params.id, req.body.userId);
-    res.send(card);
-  }
-  catch(err) {
-    res.status(400).send(err.message);
-  }
-});
-
-// DELETE card
+// DELETE - Delete user
 router.delete('/:id', async (req, res) => {
   try {
-    let card = await deleteCard(req.params.id);
-    if (!card) {
-      return res.status(404).send('Card not found');
+    let user = await deleteUser(req.params.id);  // ✅ Using correct function
+    if (!user) {
+      return res.status(404).send('User not found');
     }
-    res.send(card);
+    res.send(user);
   }
   catch(err) {
     res.status(400).send(err.message);

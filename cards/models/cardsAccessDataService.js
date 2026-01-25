@@ -1,5 +1,6 @@
 const Card = require("./mongodb/Card");
 
+// CREATE
 const createCard = async (newCard) => {
   try {
     let card = new Card(newCard);
@@ -10,6 +11,7 @@ const createCard = async (newCard) => {
   }
 };
 
+// READ - Get all cards
 const getCards = async () => {
   try {
     let cards = await Card.find();
@@ -19,6 +21,17 @@ const getCards = async () => {
   }
 };
 
+// ✅ NEW: READ - Get single card by ID
+const getCard = async (cardId) => {
+  try {
+    let card = await Card.findById(cardId);
+    return card;
+  } catch (error) {
+    throw new Error("Mongoose " + error.message);
+  }
+};
+
+// UPDATE
 const updateCard = async (cardId, newCard) => {
   try {
     const card = await Card.findByIdAndUpdate(cardId, newCard, { new: true });
@@ -28,6 +41,7 @@ const updateCard = async (cardId, newCard) => {
   }
 };
 
+// DELETE
 const deleteCard = async (cardId) => {
   try {
     const card = await Card.findByIdAndDelete(cardId);
@@ -37,7 +51,7 @@ const deleteCard = async (cardId) => {
   }
 };
 
-// NEW: Like/Unlike toggle
+// LIKE/UNLIKE toggle
 const likeCard = async (cardId, userId) => {
   try {
     let card = await Card.findById(cardId);
@@ -46,11 +60,9 @@ const likeCard = async (cardId, userId) => {
     }
     
     if (card.likes.includes(userId)) {
-      // User already liked → Remove the like
       let newLikesArray = card.likes.filter((id) => id != userId);
       card.likes = newLikesArray;
     } else {
-      // User hasn't liked → Add the like
       card.likes.push(userId);
     }
     
@@ -61,5 +73,4 @@ const likeCard = async (cardId, userId) => {
   }
 };
 
-
-module.exports = { createCard, getCards, updateCard, deleteCard , likeCard};
+module.exports = { createCard, getCards, getCard, updateCard, deleteCard, likeCard };
